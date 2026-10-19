@@ -79,3 +79,11 @@ FROM (
     (file_format => SMOOTHIES.PUBLIC.TWO_HEADERROW_PCT_DELIM)
 )
 ON_ERROR = ABORT_STATEMENT;
+
+
+-- ---------------------------
+-- L4: create an Orders table
+-- ---------------------------
+CREATE OR REPLACE TABLE SMOOTHIES.PUBLIC.ORDERS (
+    ingredients varchar(200)
+);
