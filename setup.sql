@@ -87,3 +87,9 @@ ON_ERROR = ABORT_STATEMENT;
 CREATE OR REPLACE TABLE SMOOTHIES.PUBLIC.ORDERS (
     ingredients varchar(200)
 );
+
+-- ---------------------------------------------
+-- L5: add NAME_ON_ORDER column to Orders table
+-- ---------------------------------------------
+ALTER TABLE SMOOTHIES.PUBLIC.ORDERS 
+ADD COLUMN NAME_ON_ORDER varchar(100);

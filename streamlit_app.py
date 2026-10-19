@@ -13,6 +13,9 @@ st.write(
 )
 
 session = get_active_session()
+order_name = st.text_input("Name of the order:")
+st.write("Name of your Smoothie will be: ", order_name)
+
 fruits_dataframe = session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(col("FRUIT_NAME"))
 # st.dataframe(data=fruits_dataframe, width='stretch')
 # fruits_dataframe.show()
@@ -23,10 +26,12 @@ if selected_ingredients:
         ingredients_str += fruit_chosen + ' '
     # st.write(ingredients_str)
     if ingredients_str:
-        insert_stmt = """INSERT INTO SMOOTHIES.PUBLIC.ORDERS(ingredients)
-                    values ('""" + ingredients_str + """')"""
+        insert_stmt = """INSERT INTO SMOOTHIES.PUBLIC.ORDERS(NAME_ON_ORDER, ingredients)
+                    values ('""" + order_name + """','""" + ingredients_str + """')"""
         submit_order = st.button("Submit Order")
         if submit_order:
+            # st.write(insert_stmt)
+            # st.stop()
             session.sql(insert_stmt).collect()
             st.success('Your Smoothie is ordered!', icon="✅")
 
