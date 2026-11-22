@@ -14,9 +14,20 @@ SHOW DATABASES LIKE 'SMOOTHIES';
 -- 5. Verify PUBLIC schema ownership
 SHOW SCHEMAS LIKE 'PUBLIC' IN DATABASE SMOOTHIES;
 
+SHOW GIT REPOSITORIES;
+
 -- auth setup config
+USE ROLE ACCOUNTADMIN;
+SELECT CURRENT_ROLE();
+DESCRIBE SECRET SMOOTHIES.PUBLIC.GITHUB_SECRET;
+
+ALTER SECRET SMOOTHIES.PUBLIC.GITHUB_SECRET
+SET PASSWORD = '<github_pat>';
+
 ALTER API INTEGRATION GITHUB_API_INTEGRATION
 SET ALLOWED_AUTHENTICATION_SECRETS = ( SMOOTHIES.PUBLIC.GITHUB_SECRET );
+
+SHOW GRANTS ON SECRET SMOOTHIES.PUBLIC.GITHUB_SECRET;
 
 -- create git repo in snowflake
 CREATE GIT REPOSITORY "snowflake-dabw-badge-3" 
@@ -52,7 +63,7 @@ CREATE STAGE SMOOTHIES.PUBLIC.my_uploaded_files
 
 -- upload the data file from local to the stage
 /*
-PUT file:///Users/trung/data/posts.json
+PUT file:///Users/trung/data/fruits_available_for_smoothies.txt
     @SMOOTHIES.PUBLIC.my_uploaded_files
     AUTO_COMPRESS = TRUE
     OVERWRITE = TRUE;
