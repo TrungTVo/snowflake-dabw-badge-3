@@ -145,3 +145,12 @@ create or replace table smoothies.public.orders (
        constraint order_uid unique (order_uid),
        order_ts timestamp_ltz default current_timestamp()
 );
+
+
+-- ---------------------------------------------
+-- L8: UDF
+-- ---------------------------------------------
+create function UTIL_DB.PUBLIC.sum_mystery_bag_vars(var1 number, var2 number, var3 number)
+    returns number as 'select var1 + var2 + var3';
+
+select UTIL_DB.PUBLIC.sum_mystery_bag_vars(12, 36, 204);
