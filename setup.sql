@@ -115,3 +115,33 @@ WHERE NAME_ON_ORDER IS NULL;
 UPDATE SMOOTHIES.PUBLIC.ORDERS 
 SET ORDER_FILLED = FALSE
 WHERE NAME_ON_ORDER IS NOT NULL;
+
+
+-- ---------------------------------------------
+-- L6: Pending Smoothie Orders app improvements
+-- ---------------------------------------------
+CREATE OR REPLACE SEQUENCE SMOOTHIES.PUBLIC.ORDER_SEQ
+    START = 1
+    INCREMENT = 2
+    ORDER
+    COMMENT = 'Provide a unique ID for each smoothie order';
+
+
+TRUNCATE TABLE SMOOTHIES.PUBLIC.ORDERS;
+
+alter table SMOOTHIES.PUBLIC.ORDERS 
+add column order_uid integer --adds the column
+default smoothies.public.order_seq.nextval  --sets the value of the column to sequence
+constraint order_uid unique enforced; --makes sure there is always a unique value in the column
+
+-- drop and recreate ORDERS table
+DROP TABLE SMOOTHIES.PUBLIC.ORDERS;
+
+create or replace table smoothies.public.orders (
+       order_uid integer default smoothies.public.order_seq.nextval,
+       order_filled boolean default false,
+       name_on_order varchar(100),
+       ingredients varchar(200),
+       constraint order_uid unique (order_uid),
+       order_ts timestamp_ltz default current_timestamp()
+);

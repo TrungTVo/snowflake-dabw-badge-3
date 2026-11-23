@@ -19,7 +19,7 @@ st.write("Name of your Smoothie will be: ", order_name)
 fruits_dataframe = session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(col("FRUIT_NAME"))
 # st.dataframe(data=fruits_dataframe, width='stretch')
 # fruits_dataframe.show()
-selected_ingredients = st.multiselect('Choose up to 5 ingredients:', fruits_dataframe)
+selected_ingredients = st.multiselect('Choose up to 5 ingredients:', fruits_dataframe, max_selections=5)
 if selected_ingredients:
     ingredients_str = ''
     for fruit_chosen in selected_ingredients:
