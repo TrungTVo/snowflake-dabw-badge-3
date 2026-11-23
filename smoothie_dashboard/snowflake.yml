@@ -1,17 +1,17 @@
 definition_version: 2
 entities:
-  snowflake-dabw-badge-3:
+  smoothie_dashboard:
     type: streamlit
     meta:
       use_mixins:
-        - streamlit_shared
+        - shared_config
     identifier:
-      name: ''
+      name: 'smoothie_dashboard'
       database: SMOOTHIES
       schema: PUBLIC
 mixins:
-  streamlit_shared:
-    title: snowflake-dabw-badge-3
+  shared_config:
+    title: smoothie_dashboard
     query_warehouse: COMPUTE_WH
     compute_pool: SYSTEM_COMPUTE_POOL_CPU
     main_file: streamlit_app.py
